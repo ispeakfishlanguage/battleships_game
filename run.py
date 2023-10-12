@@ -118,7 +118,7 @@ def place_ships(grid, ships):
             for i in range(SHIP_LENGTHS[ship]):
                 grid[y][x + i] = SHIP_ICONS[ship]
         elif orientation == 'vertical':
-            for i in range(SHIP_LENGTHS[ship]): 
+            for i in range(SHIP_LENGTHS[ship]):
                 grid[y + i][x] = SHIP_ICONS[ship]
         else:
             print(f"Invalid ship orientation: {orientation}")
@@ -132,7 +132,7 @@ def player_turn(player_grid):
             x = int(input("Enter row (0-7): "))
             y = int(input("Enter column (0-7): "))
 
-            if is_valid_coordinate(x, y) and player_grid[x][y] == ' ':
+            if is_valid_coordinate(x, y, len(player_grid)):  # Check if valid
                 return x, y
             else:
                 print("Invalid input. Please try again.")
@@ -180,22 +180,6 @@ def computer_turn(grid_size, computer_grid):
     return x, y
 
 
-def restart_game():
-    """Ask the user if they want to play again."""
-    while True:
-        try:
-            restart = input("Do you want to play again? (Y/N): ")
-            if restart.upper() == 'Y':
-                main()
-            elif restart.upper() == 'N':
-                print("Thanks for playing!")
-                break
-            else:
-                raise ValueError
-        except ValueError:
-            print("Invalid input. Please enter Y or N.")
-
-
 def main():
     print("Welcome to Battleships!")
 
@@ -207,33 +191,40 @@ def main():
     computer_grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
 
     player_ships = get_player_ships(player_grid)
-    place_ships(player_grid, player_ships)
-
     computer_ships = get_computer_ships(computer_grid)
-    place_ships(computer_grid, computer_ships)
 
     while True:
         print("Your Grid:")
         print_grid(player_grid)
 
         # Player's turn
-        player_x, player_y = player_turn()
+        print("Your Turn:")
+        player_x, player_y = player_turn(player_grid)  # Pass player_grid
         check_if_hit(player_x, player_y, computer_ships, player_grid)
-        check_if_sunk(player_grid, computer_ships)
-        if check_if_game_over(player_grid, computer_ships):
+        check_if_sunk(computer_ships, player_grid)
+        if check_if_game_over(player_grid):
+            print("Congratulations! You won!")
             break
 
         # Computer's turn
+        print("Computer's Turn:")
         computer_x, computer_y = computer_turn(grid_size, computer_grid)
         check_if_hit(computer_x, computer_y, player_ships, computer_grid)
-        check_if_sunk(computer_grid, player_ships)
-        if check_if_game_over(computer_grid, player_ships):
+        check_if_sunk(player_ships, computer_grid)
+        if check_if_game_over(computer_grid):
+            print("Sorry, you lost. The computer won.")
             break
 
         print("Computer's Grid:")
         print_grid(computer_grid)
 
-    restart_game()
+    restart = input("Do you want to play again? (Y/N): ")
+    if restart.upper() == 'Y':
+        main()
+    elif restart.upper() == 'N':
+        print("Thanks for playing!")
+    else:
+        print("Invalid input. Exiting the game.")
 
 
 main()
