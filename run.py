@@ -33,61 +33,13 @@ def print_grid(grid):
     print()
 
 
-def place_computer_ships(grid_size, computer_grid):
+def get_computer_ships(computer_grid):
+    """Randomize the computer ships coordinates."""
     computer_ships = {'Battleship': [], 'Cruiser': [], 'Destroyer': []}
     for ship in computer_ships:
         while True:
             try:
                 print(f"Placing {ship}...")
-                x = random.randint(0, grid_size - 1)
-                y = random.randint(0, grid_size - 1)
-                orientation = random.choice(['horizontal', 'vertical'])
-                if orientation == 'horizontal':
-                    if orientation == 'horizontal':
-                        if x + SHIP_LENGTHS[ship] - 1 < grid_size:
-                            for i in range(SHIP_LENGTHS[ship]):
-                                if computer_grid[x][y + i] == ' ':
-                                    computer_grid[x][y + i] = ship[0]
-                                    computer_ships[ship].append((x, y + i))
-                                else:
-                                    raise ValueError
-                        else:
-                            raise ValueError
-                    else:
-                        if x + SHIP_LENGTHS[ship] - 1 < grid_size:
-                            for i in range(SHIP_LENGTHS[ship]):
-                                if computer_grid[x + i][y] == ' ':
-                                    computer_grid[x + i][y] = ship[0]
-                                    computer_ships[ship].append((x + i, y))
-                                else:
-                                    raise ValueError
-                        else:
-                            raise ValueError
-                else:
-                    if y + SHIP_LENGTHS[ship] - 1 < grid_size:
-                        for i in range(SHIP_LENGTHS[ship]):
-                            if computer_grid[x][y + i] == ' ':
-                                computer_grid[x][y + i] = ship[0]
-                                computer_ships[ship].append((x, y + i))
-                            else:
-                                raise ValueError
-                    else:
-                        raise ValueError
-            except ValueError:
-                continue
-            else:
-                break
-    return computer_ships
-
-
-def place_player_ships(board):
-    """
-    Allows the player to place their ships on the game board.
-    """
-    for ship in SHIP_LENGTHS:
-        print(f"Placing {ship}...")
-        while True:
-            try:
                 x, y, orientation = input(
                     "Enter the starting coordinates and"
                     f" orientation for your {ship} (e.g."
@@ -98,22 +50,79 @@ def place_player_ships(board):
                 y = int(y) - 1
                 if orientation.upper() == "H":
                     for i in range(SHIP_LENGTHS[ship]):
-                        if board[x+i][y] != EMPTY:
+                        if computer_grid[x+i][y] != EMPTY:
                             raise ValueError
                     for i in range(SHIP_LENGTHS[ship]):
-                        board[x+i][y] = ship
+                        computer_grid[x+i][y] = ship
+                        computer_ships[ship].append((x+i, y))
                 elif orientation.upper() == "V":
                     for i in range(SHIP_LENGTHS[ship]):
-                        if board[x][y+i] != EMPTY:
+                        if computer_grid[x][y+i] != EMPTY:
                             raise ValueError
                     for i in range(SHIP_LENGTHS[ship]):
-                        board[x][y+i] = ship
+                        computer_grid[x][y+i] = ship
+                        computer_ships[ship].append((x, y+i))
                 else:
                     raise ValueError
                 break
             except (ValueError, IndexError):
                 print("Invalid input. Please try again.")
-    return board
+    return computer_ships
+
+
+def get_player_ships(player_grid):
+    """Ask the user to place their ships and return the player ships."""
+    player_ships = {'Battleship': [], 'Cruiser': [], 'Destroyer': []}
+    for ship in player_ships:
+        while True:
+            try:
+                print(f"Placing {ship}...")
+                x, y, orientation = input(
+                    "Enter the starting coordinates and"
+                    f" orientation for your {ship} (e.g."
+                    " A1 H for horizontal, "
+                    "A1 V for vertical): "
+                ).split()
+                x = ord(x.upper()) - 65
+                y = int(y) - 1
+                if orientation.upper() == "H":
+                    for i in range(SHIP_LENGTHS[ship]):
+                        if player_grid[x+i][y] != EMPTY:
+                            raise ValueError
+                    for i in range(SHIP_LENGTHS[ship]):
+                        player_grid[x+i][y] = ship
+                        player_ships[ship].append((x+i, y))
+                elif orientation.upper() == "V":
+                    for i in range(SHIP_LENGTHS[ship]):
+                        if player_grid[x][y+i] != EMPTY:
+                            raise ValueError
+                    for i in range(SHIP_LENGTHS[ship]):
+                        player_grid[x][y+i] = ship
+                        player_ships[ship].append((x, y+i))
+                else:
+                    raise ValueError
+                break
+            except (ValueError, IndexError):
+                print("Invalid input. Please try again.")
+    return player_ships
+
+
+def place_ships(grid, ships):
+    """
+    Places the ships on the board using the coordinates and orientation
+    given by the user or the computer.
+    """
+    for ship in ships:  # Iterate through the ships
+        x, y, orientation = ship  # Unpack the ship tuple
+        if orientation == 'horizontal':
+            for i in range(SHIP_LENGTHS[ship]):
+                grid[y][x + i] = SHIP_ICONS[ship]
+        elif orientation == 'vertical':
+            for i in range(SHIP_LENGTHS[ship]): 
+                grid[y + i][x] = SHIP_ICONS[ship]
+        else:
+            print(f"Invalid ship orientation: {orientation}")
+    return grid
 
 
 # Function for the player's turn
@@ -194,11 +203,14 @@ def main():
     grid_size = set_grid_size()
 
     # Initialize the game grid with the chosen size
-    player_grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
-    computer_grid = [[' ' for _ in range(grid_size)] for _ in range(grid_size)]
+    player_grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
+    computer_grid = [['.' for _ in range(grid_size)] for _ in range(grid_size)]
 
-    player_ships = place_player_ships(player_grid)
-    computer_ships = place_computer_ships(computer_grid)
+    player_ships = get_player_ships(player_grid)
+    place_ships(player_grid, player_ships)
+
+    computer_ships = get_computer_ships(computer_grid)
+    place_ships(computer_grid, computer_ships)
 
     while True:
         print("Your Grid:")
