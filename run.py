@@ -1,20 +1,25 @@
 import random
 # Define ship lengths
 SHIP_LENGTHS = {'Battleship': 4, 'Cruiser': 3, 'Destroyer': 2}
-EMPTY = ' '
+SHIP_ICONS = {'Battleship': 'B', 'Cruiser': 'C', 'Destroyer': 'D'}
+EMPTY = '.'
 
 
 def set_grid_size():
     """Ask the user to enter the grid size and return the grid size."""
     while True:
         try:
-            grid_size = int(input("Enter the grid size (between 4 and 10, "
-                                  "e.g., 8 for an 8x8 grid): "))
+            grid_size = int(input(
+                "Enter the grid size (between 4 and 10, "
+                "e.g., 8 for an 8x8 grid): "
+            ))
             if 4 <= grid_size <= 10:
                 return grid_size
             else:
-                print("Invalid grid size. Please enter a number between 4"
-                      " and 10.")
+                print(
+                    "Invalid grid size. Please enter a number between 4"
+                    " and 10."
+                )
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -22,7 +27,9 @@ def set_grid_size():
 def print_grid(grid):
     """Print the grid."""
     for row in grid:
-        print(" ".join(row))
+        print(
+            " ".join([SHIP_ICONS[x] if x in SHIP_ICONS else '.' for x in row])
+        )
     print()
 
 
@@ -81,10 +88,12 @@ def place_player_ships(board):
         print(f"Placing {ship}...")
         while True:
             try:
-                x, y, orientation = input("Enter the starting coordinates and"
-                                          f" orientation for your {ship} (e.g."
-                                          " A1 H for horizontal, "
-                                          "A1 V for vertical): ").split()
+                x, y, orientation = input(
+                    "Enter the starting coordinates and"
+                    f" orientation for your {ship} (e.g."
+                    " A1 H for horizontal, "
+                    "A1 V for vertical): "
+                ).split()
                 x = ord(x.upper()) - 65
                 y = int(y) - 1
                 if orientation.upper() == "H":
@@ -213,3 +222,6 @@ def main():
         print_grid(computer_grid)
 
     restart_game()
+
+
+main()
