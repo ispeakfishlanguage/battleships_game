@@ -28,6 +28,11 @@ def print_grid(grid):
     """Print the grid."""
     for row in grid:
         print(
+            # COMMENT: I think it was me who introduced this issue, but if you
+            # print '.' when x is not in SHIP_ICONS, it means you will ignore
+            # 'X' and 'O' and print '.' in those positions instead. You can fix
+            # this by just replacing '.' with x, so you print what's already
+            # in the grid unless it's a ship.
             " ".join([SHIP_ICONS[x] if x in SHIP_ICONS else '.' for x in row])
         )
     print()
