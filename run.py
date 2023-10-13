@@ -40,6 +40,8 @@ def get_computer_ships(computer_grid):
         while True:
             try:
                 print(f"Placing {ship}...")
+                # COMMENT: It seems like the code for randomizing the position and orientation of the 
+                # computer ships has disappeared? Copy paste error? 
                 x, y, orientation = input(
                     "Enter the starting coordinates and"
                     f" orientation for your {ship} (e.g."
