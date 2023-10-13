@@ -180,6 +180,8 @@ def computer_turn(grid_size, computer_grid):
     while True:
         x = random.randint(0, grid_size - 1)
         y = random.randint(0, grid_size - 1)
+        # COMMENT: This is a bug, you're checking if the grid is empty by comparing to a space, but you use '.' everywhere else.
+        # You should replace all usages of either ' ' or '.' with the EMPTY constant, that way there's no risk of confusing them.
         if computer_grid[x][y] == ' ':
             break
     return x, y
