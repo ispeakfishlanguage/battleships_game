@@ -176,6 +176,13 @@ def check_if_hit(x, y, computer_ships, player_grid):
 def check_if_sunk(computer_ships, player_grid):
     """Check if a ship has been sunk."""
     for ship in computer_ships:
+        # COMMENT: This condition checks if any enemy ship has been sunk and prints the
+        # message for that ship. That means that once you sink any ship, it'll print this
+        # message every turn until the end of the game. It also doesn't keep track of
+        # whether it was the ship you just sank, so it'll print the message for an arbitrary
+        # sunk ship. You should include the latest firing position as a parameter to this
+        # function, find the ship that was hit by shot and check if that particular ship is sunk 
+        # instead.
         if all(player_grid[x][y] == 'X' for x, y in computer_ships[ship]):
             print(f"You sunk the computer's {ship}!")
             break
@@ -183,6 +190,8 @@ def check_if_sunk(computer_ships, player_grid):
 
 def check_if_game_over(player_grid):
     """Check if the game is over."""
+    # COMMENT: The winning condition here checks if every cell in the entire grid is hit,
+    # rather than if all ships are sunk.
     return all(all(cell == 'X' for cell in row) for row in player_grid)
 
 
