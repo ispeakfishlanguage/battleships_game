@@ -143,6 +143,8 @@ def place_ships(grid, ships):
 def player_turn(player_grid):
     while True:
         try:
+            # COMMENT: Like I said before, "row index" is the vertical position and "column index" is the horizontal position
+            # So this is backwards.
             x = int(input("Enter row (0-7): "))
             y = int(input("Enter column (0-7): "))
 
