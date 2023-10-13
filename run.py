@@ -202,6 +202,9 @@ def computer_turn(grid_size, computer_grid):
         y = random.randint(0, grid_size - 1)
         # COMMENT: This is a bug, you're checking if the grid is empty by comparing to a space, but you use '.' everywhere else.
         # You should replace all usages of either ' ' or '.' with the EMPTY constant, that way there's no risk of confusing them.
+        # Since you check for empty spaces, this means the computer won't fire on positions it has already tried, which is good.
+        # However, it also won't fire on positions where it has its own ships, which doesn't make sense. Rather than break on
+        # empty spaces, you should break if the position does not contain an 'X' or a 'O'.
         if computer_grid[x][y] == ' ':
             break
     return x, y
