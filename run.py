@@ -94,6 +94,7 @@ def get_player_ships(player_grid):
                         # the orientation reversed. I recommend searching for all usages of "grid["
                         # to make sure you fix this everywhere where you look up a coordinate in a 
                         # grid.
+                        if player_grid[x+i][y] != EMPTY:
                             raise ValueError
                     for i in range(SHIP_LENGTHS[ship]):
                         player_grid[x+i][y] = ship
