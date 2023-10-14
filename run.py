@@ -23,9 +23,9 @@ print(ascii_text)
 # Define ship lengths and icons
 SHIP_LENGTHS = {'Battleship': 4, 'Cruiser': 3, 'Destroyer': 2}
 SHIP_ICONS = {
-    'Battleship': Fore.CYAN + 'B',
-    'Cruiser': Fore.MAGENTA + 'C',
-    'Destroyer': Fore.YELLOW + 'D'
+    'Battleship': Fore.CYAN + 'B' + Style.RESET_ALL,
+    'Cruiser': Fore.MAGENTA + 'C' + Style.RESET_ALL,
+    'Destroyer': Fore.YELLOW + 'D' + Style.RESET_ALL
 }
 EMPTY = '.'
 # Define the instructions with Colorama styling
@@ -75,10 +75,14 @@ def set_grid_size():
     """Ask the user to enter the grid size and return the grid size."""
     while True:
         try:
-            grid_size = int(input(
-                "Enter the grid size (between 4 and 10, "
-                "e.g., 8 for an 8x8 grid): "
-            ))
+            grid_size = input(
+                Fore.YELLOW +
+                "Enter the grid size (between 4-10, e.g. 8 for an 8x8 grid): "
+                + Style.RESET_ALL
+            )
+            check_for_exit_command(grid_size)
+            grid_size = int(grid_size)
+
             if 4 <= grid_size <= 10:
                 return grid_size
             else:
@@ -87,12 +91,14 @@ def set_grid_size():
                     Style.BRIGHT +
                     "Invalid grid size. Please enter a number between 4"
                     " and 10."
+                    + Style.RESET_ALL
                 )
         except ValueError:
             print(
                 Fore.RED +
                 Style.BRIGHT +
                 "Invalid input. Please enter a number."
+                + Style.RESET_ALL
             )
 
 
@@ -138,13 +144,15 @@ def get_player_ships(player_grid):
         print_grid(player_grid)
         while True:
             try:
-                print(f"Place your {ship}...")
-                x, y, orientation = input(
+                print(Fore.YELLOW + Style.BRIGHT + f"Place your {ship}...")
+                coords = input(
                     "Enter the starting coordinates and"
                     f" orientation for your {ship} (e.g."
                     " A 1 H for horizontal, "
                     "A 1 V for vertical): "
-                ).split()
+                )
+                check_for_exit_command(coords)
+                x, y, orientation = coords.split()
                 x = ord(x.upper()) - 65
                 y = int(y) - 1
                 if orientation.upper() == "H":
@@ -178,11 +186,15 @@ def is_valid_coordinate(x, y, grid_size):
 
 
 def player_turn(player_shots_grid, grid_size):
-    """Function for the player's turn, ensuring shots are unique."""
+    """Function for the player's turn, ensures shots are unique."""
     while True:
+        print(Fore.YELLOW + Style.BRIGHT + "Your turn!")
         try:
-            x = int(input(f"Enter column (0-{grid_size-1}): "))
-            y = int(input(f"Enter row (0-{grid_size-1}): "))
+            coords = input("Enter the coordinates for your shot (e.g. A 1): ")
+            check_for_exit_command(coords)
+            x, y = coords.split()
+            x = ord(x.upper()) - 65
+            y = int(y) - 1
 
             if (
                 is_valid_coordinate(x, y, len(player_shots_grid)) and
@@ -195,12 +207,14 @@ def player_turn(player_shots_grid, grid_size):
                     Style.BRIGHT +
                     "Invalid input or previously shot at this location. "
                     "Please try again."
+                    + Style.RESET_ALL
                 )
         except ValueError:
             print(
                 Fore.RED +
                 Style.BRIGHT +
-                "Invalid input. Please enter numbers."
+                "Invalid input. Please enter valid coordinates."
+                + Style.RESET_ALL
             )
 
 
@@ -208,8 +222,8 @@ def check_if_hit(x, y, ships, shots_grid):
     """Check if a ship has been hit."""
     for ship in ships:
         if (x, y) in ships[ship]:
-            print(Back.GREEN + Style.BRIGHT + "Hit!")
-            shots_grid[y][x] = 'X'
+            print(Fore.WHITE + Back.GREEN + Style.BRIGHT + "Hit!")
+            shots_grid[y][x] = Fore.RED + Style.BRIGHT + 'X' + Style.RESET_ALL
             return True
     else:
         print(Back.RED + Style.BRIGHT + "Miss!")
@@ -244,8 +258,22 @@ def computer_turn(grid_size, computer_shots_grid):
             return x, y
 
 
+def check_for_exit_command(input_text):
+    if input_text.lower() in ['exit', 'quit']:
+        print(
+            Fore.RED + Style.BRIGHT +
+            "Exiting the game. Thanks for playing!"
+            + Style.RESET_ALL
+        )
+        exit()
+
+
 def main():
-    print("Welcome to Battleships!")
+    print(
+        Fore.YELLOW +
+        "Welcome to Battleships!"
+        + Style.RESET_ALL
+    )
 
     # Instructions on how to play the game
     print(INSTRUCTIONS)
@@ -282,30 +310,46 @@ def main():
         print_grid(player_shots_grid)
 
         # Player's turn
-        print("Your Turn:")
         player_x, player_y = player_turn(player_shots_grid, grid_size)
-        check_if_hit(player_x, player_y, computer_ships, player_shots_grid)
+        if check_if_hit(player_x, player_y, computer_ships, player_shots_grid):
+            check_if_sunk(computer_ships, player_shots_grid)
         if check_all_sunk(computer_ships, player_shots_grid):
-            print(Fore.GREEN + Style.BRIGHT + "Congratulations! You won!")
-            break
-
-        # Computer's turn
-        print("Computer's Turn:")
-        computer_x, computer_y = computer_turn(grid_size, computer_shots_grid)
-        check_if_hit(computer_x, computer_y, player_ships, computer_shots_grid)
-        if check_all_sunk(player_ships, computer_shots_grid):
             print(
-                Fore.RED + Style.BRIGHT + "Sorry, you lost. The computer won."
+                Fore.GREEN + Style.BRIGHT +
+                "Congratulations! You won!"
+                + Style.RESET_ALL
             )
             break
 
-    restart = input("Do you want to play again? (Y/N): ")
+        # Computer's turn
+        print(Fore.YELLOW + "Computer's Turn:" + Style.RESET_ALL)
+        computer_x, computer_y = computer_turn(grid_size, computer_shots_grid)
+        check_if_hit(computer_x, computer_y, player_ships, computer_shots_grid)
+        check_if_sunk(player_ships, computer_shots_grid)
+
+        if check_all_sunk(player_ships, computer_shots_grid):
+            print(
+                Fore.RED +
+                Style.BRIGHT +
+                "Sorry, you lost. The computer won."
+                + Style.RESET_ALL
+            )
+            break
+
+    restart = input(Fore.YELLOW + "Do you want to play again? (Y/N): ")
+    check_for_exit_command(restart)
     if restart.upper() == 'Y':
         main()
     elif restart.upper() == 'N':
-        print("Thanks for playing!")
+        print(
+            Fore.MAGENTA + Style.BRIGHT +
+            "Thanks for playing!"
+            + Style.RESET_ALL
+        )
+        exit()
     else:
-        print("Invalid input. Exiting the game.")
+        print(Fore.RED + "Invalid input. Exiting the game." + Style.RESET_ALL)
+        exit()
 
 
 if __name__ == '__main__':
