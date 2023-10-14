@@ -152,14 +152,14 @@ Before starting the game, players are shown an example of a 10x10 grid to famili
 ## Technologies and Libraries Used
 
 * Python was used as the programming language to code the game logic.
-* [LucidChart](https://www.lucidchart.com/pages/) was used to create the flow chart for control flow. The flow of the App was laid out and structured to aid in the design of the control flow statements such as if-elif-else statements, while loops and for loops.
+* [LucidChart](https://www.lucidchart.com/pages/) was used to create the flow chart for control flow. The flow of the game was laid out and structured to aid in the design of the control flow statements such as if-elif-else statements, while loops and for loops.
 The actual flowchart can be viewed [here](https://lucid.app/lucidchart/invitations/accept/inv_784b90d4-5035-47fc-a4f8-026dd960e23b).
 
     ![Flowchart](assets/images/flowchart1.png)
 
 * [Colorama](https://pypi.org/project/colorama/) was installed and imported for adding color to text to make it easier to read.
-* [Pyfiglet](https://pypi.org/project/pyfiglet/0.7/) was installed and imported for adding ascii art to App title.
-* [GoogleDocs](https://docs.google.com/document/u/0/) was used to create online spreadsheet to write down testing results.
+* [Pyfiglet](https://pypi.org/project/pyfiglet/0.7/) was installed and imported for adding ascii art to the game title.
+* [GoogleDocs](https://docs.google.com/document/u/0/) was used to create an online spreadsheet to write down testing results.
 * [GitHub](https://github.com/) has been used to store the code, images, and other content related to the project.
 * [Heroku](https://dashboard.heroku.com/apps) was used to deploy the game on the web.
 * [Git](https://git-scm.com/) was used to commit and push code during the development stage.
@@ -181,10 +181,9 @@ The actual flowchart can be viewed [here](https://lucid.app/lucidchart/invitatio
 ### Functional Testing
 
 After the game was deployed on Heroku at the end of the development stage, a dedicated manual testing was carried out as a user at Heroku terminal. Each input option was tested with all the possible scenarios and particular attention was paid to validating the value of the input. The player's board as well as the computer's board were closely monitored to check if any changes were made as a consequence of the guesses made on each round.
+Using the words exit/quit was tested manually on all input prompts to the player.
 
 Here are the results:
-
-
 
 ### Validator Testing
 
@@ -215,7 +214,7 @@ The below steps were followed to deploy this project to Heroku:
 6. Scroll to the bottom of the deploy page and select preferred deployment type:
     * Click **Enable Automatic Deploys** for automatic deployment when you push updates to Github.
     * Further down to **Manual Deploy**, make sure the "main" branch is selected and click "Deploy Branch".
-7. The App live link can be found [here](https://client-profile-system.herokuapp.com/).
+7. The game's live link can be found [here](https://client-profile-system.herokuapp.com/).
 
 ### Clone the Repository Code from github desktop
 
@@ -230,14 +229,14 @@ Navigate to the GitHub Repository you want to clone to use locally:
 
 ## Credits
 
-I would like to acknowledge the great support from my mentor Daisy. With my project idea, she introduced me few appropriate technologies and libraries to enhance the App presentation.
+I would like to acknowledge the absolutely amazing mentor Daisy McGirr. After checking my original code, she introduced me to the appropriate technologies and libraries to enhance the game's look and functionality.
 
-Resources used to implement specific features:
+**Resources used to implement specific features:**
 
 * [How to use Colorama in Python](https://pypi.org/project/colorama/)
 * [Python | ASCII art using pyfiglet module](https://www.geeksforgeeks.org/python-ascii-art-using-pyfiglet-module/)
 
-Resources helped to fix issues/errors in coding:
+**Resources that helped fix issues/errors in the code:**
 
 * [How can I split up a long f-string in Python?](https://stackoverflow.com/questions/48881196/how-can-i-split-up-a-long-f-string-in-python)
 * [Breaking up long lines of code in Python](https://www.pythonmorsels.com/breaking-long-lines-code-python/)
