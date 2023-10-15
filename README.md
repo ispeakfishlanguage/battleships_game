@@ -202,6 +202,31 @@ Using the words exit/quit was tested manually on all input prompts to the player
 
 Here are the results:
 
+| **Test Case**                      | **Action**                                                | **Expected Outcome**                                           | **Actual Outcome** | **Pass/Fail** |
+|-----------------------------------|----------------------------------------------------------|----------------------------------------------------------------|--------------------|---------------|
+| **Game Initialization**           |                                                          |                                                                |                    |               |
+| Start Game                        | Launch the game                                          | Game starts with introduction, ASCII title, and instructions   | Game starts with introduction, ASCII title, and instructions    |   PASS            |
+| **Setting Game Grid Size**        |                                                          |                                                                |                    |               |
+| Valid Grid Size Input             | Input a number between 4 and 10                          | Game accepts input and proceeds to ship placement phase       | Game accepts input and proceeds to ship placement phase |   PASS            |
+| Invalid Grid Size Input           | Input a number outside the range 4-10                    | Error message displayed and prompted to input valid number     |  Error message displayed and prompted to input valid number                  |    PASS           |
+| Non-numeric Input                 | Input a non-numeric character (e.g., 'A')                | Error message displayed and prompted to input valid number     |   Error message displayed and prompted to input valid number  |    PASS           |
+| **Ship Placement**                |                                                          |                                                                |                    |               |
+| Valid Ship Position               | Place a ship within the grid boundaries                  | Ship placed on grid                                           | Ship placed on grid                   |    PASS           |
+| Invalid Ship Position             | Place a ship outside grid or overlapping another ship    | Error message displayed and prompted to choose a new position  |  Error message displayed and prompted to choose a new position                  |     PASS          |
+| **Turn Rotation**                 |                                                          |                                                                |                    |               |
+| Valid Shot Position               | Choose a valid grid position for shot                    | Display 'Hit' or 'Miss' based on shot outcome                 |    Display 'Hit' or 'Miss' based on shot outcome                |    PASS           |
+| Invalid Shot Position             | Choose a grid position outside boundaries                | Error message displayed and prompted to choose valid position  |    Error message displayed and prompted to choose valid position                |   PASS            |
+| Repeat Shot Position              | Shoot at a previously chosen position                    | Error message indicating position was already shot at          |   Error message indicating position was already shot at              |     PASS          |
+| **Game End Conditions**           |                                                          |                                                                |                    |               |
+| Player Wins                       | Sink all computer's ships                                | Display victory message     |  Display victory message                   |    PASS           |
+| Computer Wins                     | All player's ships are sunk by computer                  | Display defeat message    |   Display defeat message                 |     PASS          |
+| **Exit Game**                     |                                                          |                                                                |                    |               |
+| Exit Command                      | Input 'exit' or 'quit' during any input prompt           | Game exits immediately                                        |  Game exits immediately                  |     PASS          |
+| Play Again                        | After game ends, choose to play again                    | Game restarts from the beginning                              | Game restarts from the beginning                   |     PASS          |
+| **Visual & Usability**            |                                                          |                                                                |                    |               |
+| Game Layout and Design            | Observe game interface                                   | Ensure that ASCII art, grid, and messages display correctly    |    ASCII art, grid, and messages display correctly                |   PASS            |
+| Instructions Clarity              | Read the game's instructions                              | Instructions should be clear and understandable                |   Instructions are clear and understandable                 |    PASS           |
+
 ### Validator Testing
 
 [CI Python Linter](https://pep8ci.herokuapp.com/) was used for validating the python files.  No errors reported.
@@ -221,7 +246,7 @@ Here are the results:
 The site was deployed via [Heroku](https://id.heroku.com/login).
 This project was developed utilizing the [Code Institute Template](https://github.com/Code-Institute-Org/p3-template).
 
-`pip3 freeze > requirements.txt` was used to add pyfiglet and Colorama imports to Heroku for deployment.
+`pip freeze > requirements.txt` was used to add pyfiglet and Colorama imports to Heroku for deployment.
 
 The below steps were followed to deploy this project to Heroku:
 
@@ -248,9 +273,9 @@ Navigate to the GitHub Repository you want to clone to use locally:
 
 ## Acknowledgements
 
-I would like to acknowledge the absolutely amazing mentor Daisy McGirr. After checking my original code, she introduced me to the appropriate technologies and libraries to enhance the game's look and functionality.
-To Daniel Ahlberg for helping me and putting up with the stress this project was causing me.
-To Lucas Alenbro Lindström for helping me debug and giving me great ideas to implement.
+* I would like to acknowledge the absolutely amazing mentor Daisy McGirr. After checking my original code, she introduced me to the appropriate technologies and libraries to enhance the game's look and functionality.
+* To Daniel Ahlberg for helping me and putting up with the stress this project was causing me.
+* To Lucas Alenbro Lindström for helping me debug and giving me great ideas to implement.
 
 ## Credits
 
