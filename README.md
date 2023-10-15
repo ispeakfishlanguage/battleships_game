@@ -1,11 +1,12 @@
 # **Battleships Game**
 
 Immerse yourself in the classic strategy game of Battleships, where you strategically position your fleet and attempt to sink your opponent's ships before they sink yours.
-A live version of the project can be viewed [Here](https://client-profile-system.herokuapp.com/).
+This game was created as a portfolio project to showcase my current Python skills.
+[A live version of the project can be viewed here](https://battleship-game88-7a782ff23f3b.herokuapp.com/).
 
 ## Table of Contents
 
-1. [**Battleship**](#battleship)
+1. [**Battleship**](#battleships-game)
    * [How to Play](#how-to-play)
      * [Setup](#setting-up-the-game)
      * [Taking turns](#taking-turns)
@@ -49,6 +50,8 @@ Players take turns guessing the positions of the opponent's ships on the grid.
 Enter your shot's coordinates when prompted. For instance, "A 1".
 A 'Hit' is marked with an 'X', and a 'Miss' is marked with an 'O'.
 
+![Taking turns](assets/images/turns_showcase.png)
+
 ### Winning the Game
 
 The game continues until all ships of one player are sunk.
@@ -58,35 +61,31 @@ If you sink all the computer's ships first, you win! But if the computer sinks a
 
 You can exit the game at any point by entering "exit" or "quit" when prompted for input.
 
+![Using the exit command on input prompt](assets/images/exit_command.png)
+
 ## Ship Types and Sizes
 
 * **Battleship:** 4 spaces, represented by a Cyan 'B'.
 * **Cruiser:** 3 spaces, represented by a Magenta 'C'.
 * **Destroyer:** 2 spaces, represented by a Yellow 'D'.
 
+![Different ship types on player's board](assets/images/ships.png)
+
 ## User Experience (UX)
 
 ### User Stories
 
-#### Game Initialization
-
 * As a player, I want to start a new game so that I can enjoy the Battleships experience from the beginning.
-Grid Customization
 
 * As a player, I want to select the grid size (ranging from 4x4 to 10x10) so that I can choose the complexity and duration of the game.
-Ship Placement
 
 * As a player, I want to manually place my ships on the grid so that I can strategize the best positions to defend against the computer.
-Gameplay Interaction
 
 * As a player, I want to take turns with the computer guessing ship positions so that I can engage in a competitive match to sink the opponent's fleet.
-Visual Feedback
 
 * As a player, I want to receive visual feedback (like 'Hit' or 'Miss') after each turn so that I can adjust my strategy based on the game's progress.
-Endgame Scenarios
 
 * As a player, I want to be notified when all ships of one side are sunk so that I can know if I've won or lost the game.
-Exit Option
 
 * As a player, I want the option to exit the game at any point so that I can leave the game when needed without having to finish the match.
 
@@ -96,6 +95,8 @@ Exit Option
 
 The game showcases the title "Battleships" in ASCII art at the start, offering an immersive and retro feel to the game.
 
+![ASCII art title](assets/images/title_art.png)
+
 **Interactive Grid Setup:**
 
 Players can select the size of the grid they want to play on, ranging from 4x4 to 10x10.
@@ -103,6 +104,8 @@ Players can select the size of the grid they want to play on, ranging from 4x4 t
 **Colorful Terminal Interface:**
 
 Utilizes the colorama library to display ships and game feedback in various colors, enhancing the visual experience.
+
+![Example grid shown on instructions screen](assets/images/example_grid.png)
 
 **Different Ship Types:**
 
@@ -112,9 +115,13 @@ The game features three types of ships, each with its own size and icon:
 * Cruiser: 3 spaces
 * Destroyer: 2 spaces
 
+![Different ship types on player's board](assets/images/ships.png)
+
 **Manual Ship Placement:**
 
 Players are prompted to manually place their ships on the grid, allowing them to strategize their ship's positions.
+
+![Placing player's ships manually](assets/images/placing_ships.png)
 
 **Computer Opponent:**
 
@@ -128,6 +135,8 @@ The game progresses in turns, with the player and the computer alternately guess
 
 When a shot is taken, the game provides visual feedback on whether it's a hit or miss. Hits are marked with a red 'X' and misses with 'O'.
 
+![Turns for player and computer, displaying feedback text](assets/images/turns_showcase.png)
+
 **Endgame Notifications:**
 
 The game notifies the player when all ships of one side are sunk, declaring either a victory or a defeat.
@@ -139,23 +148,31 @@ After a game concludes, players are given the option to restart and play again.
 **Exit Command:**
 Players can type "exit" or "quit" at any point during the game to immediately exit the game.
 
+![Using the exit command on input prompt](assets/images/exit_command.png)
+
 **Instructions Display:**
 The game provides clear instructions at the start, explaining the gameplay, ship identification, and objectives.
+
+![Instructions](assets/images/title_art.png)
 
 **Example Grid Display:**
 Before starting the game, players are shown an example of a 10x10 grid to familiarize themselves with the layout.
 
+![Example Grid](assets/images/example_grid.png)
+
 ### Features Left to Implement
 
 * Multiplayer option for the game.
+* Option to choose whether to input rows and columns or coordinates in the format A 1 H according to the player's preference.
+* Keeping scores for the player and computer.
 
 ## Technologies and Libraries Used
 
 * Python was used as the programming language to code the game logic.
 * [LucidChart](https://www.lucidchart.com/pages/) was used to create the flow chart for control flow. The flow of the game was laid out and structured to aid in the design of the control flow statements such as if-elif-else statements, while loops and for loops.
-The actual flowchart can be viewed [here](https://lucid.app/lucidchart/invitations/accept/inv_784b90d4-5035-47fc-a4f8-026dd960e23b).
+The actual flowchart can be viewed [here](https://lucid.app/lucidchart/5a98654e-3632-449f-ade4-5b3b26d5ffa5/edit?view_items=2T-DNyjDVaOZ&invitationId=inv_362ba325-d51e-4ff5-a62a-0d209905b1e0).
 
-    ![Flowchart](assets/images/flowchart1.png)
+    ![Flowchart](assets/images/flowchart.png)
 
 * [Colorama](https://pypi.org/project/colorama/) was installed and imported for adding color to text to make it easier to read.
 * [Pyfiglet](https://pypi.org/project/pyfiglet/0.7/) was installed and imported for adding ascii art to the game title.
@@ -187,11 +204,13 @@ Here are the results:
 
 ### Validator Testing
 
-[pep8 online](http://pep8online.com/) was used for validating the python files.  No errors reported.
+[CI Python Linter](https://pep8ci.herokuapp.com/) was used for validating the python files.  No errors reported.
 
 ![Pep8 Results Screenshot](assets/images/validator.png)
 
 ## Deployment
+
+[A live version of the project can be viewed here](https://battleship-game88-7a782ff23f3b.herokuapp.com/).
 
 ### Version Control
 
@@ -199,10 +218,10 @@ Here are the results:
 
 ### To deploy to Heroku terminal
 
-The site was deployed via [Heroku]( https://id.heroku.com/login).
-This project was developed utilising the [Code Institute Template]( https://github.com/Code-Institute-Org/python-essentials-template).
+The site was deployed via [Heroku](https://id.heroku.com/login).
+This project was developed utilizing the [Code Institute Template](https://github.com/Code-Institute-Org/p3-template).
 
-`pip3 freeze > requirements.txt` was used to add Gspread, Google.oauth2, tabulate, pyfiglet and Colorama imports to Heroku for deployment.
+`pip3 freeze > requirements.txt` was used to add pyfiglet and Colorama imports to Heroku for deployment.
 
 The below steps were followed to deploy this project to Heroku:
 
@@ -227,9 +246,13 @@ Navigate to the GitHub Repository you want to clone to use locally:
 * Type git clone copied-git-url into the IDE terminal
 * The project will now been cloned on your local machine for use.
 
-## Credits
+## Acknowledgements
 
 I would like to acknowledge the absolutely amazing mentor Daisy McGirr. After checking my original code, she introduced me to the appropriate technologies and libraries to enhance the game's look and functionality.
+To Daniel Ahlberg for helping me and putting up with the stress this project was causing me.
+To Lucas Alenbro Lindström for helping me debug and giving me great ideas to implement.
+
+## Credits
 
 **Resources used to implement specific features:**
 
@@ -240,4 +263,4 @@ I would like to acknowledge the absolutely amazing mentor Daisy McGirr. After ch
 
 * [How can I split up a long f-string in Python?](https://stackoverflow.com/questions/48881196/how-can-i-split-up-a-long-f-string-in-python)
 * [Breaking up long lines of code in Python](https://www.pythonmorsels.com/breaking-long-lines-code-python/)
-* [What Does if __name__ == "__main__" Do in Python? – Real Python](https://realpython.com/if-name-main-python/)
+* [What Does if `__name__ == "__main__"` Do in Python? – Real Python](https://realpython.com/if-name-main-python/)
